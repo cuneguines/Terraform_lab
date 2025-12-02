@@ -5,6 +5,7 @@ resource "aws_lb_target_group" "web_tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
 
+# Health check configuration to monitor instance availability
   health_check {
     path                = "/"
     interval            = 30
@@ -25,6 +26,7 @@ resource "aws_lb" "web_alb" {
 }
 
 # ALB Listener
+#Tells the ALB to listen on port 80 (HTTP).
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.web_alb.arn
   port              = 80
