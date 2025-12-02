@@ -1,9 +1,9 @@
 # Public Subnets
 resource "aws_subnet" "public_1" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "${var.aws_region}a"
-  map_public_ip_on_launch = true
+  vpc_id            = aws_vpc.main.id					# Associate this subnet with the main VPC
+  cidr_block        = "10.0.1.0/24"					# IP range for this subnet
+  availability_zone = "${var.aws_region}a"			# Place it in AZ 'a' of the selected region
+  map_public_ip_on_launch = true					# Automatically assign public IPs to instances launched here
   tags = { Name = "public-subnet-1" }
 }
 
@@ -38,7 +38,8 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
   tags   = { Name = "public-rt" }
 }
-
+# Default route for public subnets to access the internet
+# Route all outbound traffic to the internet
 resource "aws_route" "default_route" {
   route_table_id         = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
