@@ -1,4 +1,7 @@
 # Security Group for ALB
+# Ingress rules define incoming traffic allowed to reach the ALB
+# Egress rules define outgoing traffic allowed from the ALB
+
 resource "aws_security_group" "alb_sg" {
   name        = "alb-sg"
   description = "Allow HTTP inbound"
@@ -20,6 +23,8 @@ resource "aws_security_group" "alb_sg" {
 }
 
 # Security Group for EC2 instances
+# Ingress rules define incoming traffic allowed to reach the EC2 instances
+# Egress rules define outgoing traffic allowed from EC2 instances
 resource "aws_security_group" "ec2_sg" {
   name        = "ec2-sg"
   description = "Allow traffic from ALB"
